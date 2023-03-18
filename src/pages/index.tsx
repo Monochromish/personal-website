@@ -14,6 +14,7 @@ import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
 import UnderlineLink from '@/components/links/UnderlineLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
+import NavBar from '@/components/NavBar';
 import NextImage from '@/components/NextImage';
 import Seo from '@/components/Seo';
 import VideoPlayer from '@/components/VideoPlayer';
@@ -30,8 +31,9 @@ export default function HomePage() {
 
       <main>
         <section className='bg-dots'>
-          <div className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center text-white'>
-            <main className='mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16'>
+          <div className='layout relative flex min-h-screen flex-col items-center justify-start text-center text-white'>
+            <NavBar />
+            <main className='mx-auto mb-12 grid max-w-3xl grid-cols-3 gap-6 sm:grid-cols-1 lg:grid-cols-6'>
               <div className='p-200 col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-emerald-200 dark:border-emerald-500 dark:bg-emerald-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52'>
                 <div className='flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4'>
                   <NextImage
@@ -60,14 +62,14 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <div className='col-span-2 h-full'>
-                {lanyardDetails ? (
-                  <>
-                    <UnstyledLink
-                      className='flex h-full items-center justify-center rounded-2xl bg-emerald-500 text-4xl text-white'
-                      href={`https://discord.com/users/${id}`}
-                    >
-                      <div className='space-y-1 text-center '>
+              <div className='h-full lg:col-span-2'>
+                <UnstyledLink
+                  className='flex h-full items-center justify-center rounded-2xl bg-emerald-500 text-4xl text-white'
+                  href={`https://discord.com/users/${id}`}
+                >
+                  <div className='space-y-1 text-center '>
+                    {lanyardDetails ? (
+                      <>
                         <h2 className='flex flex-row items-center	justify-center gap-3'>
                           <div
                             className={`h-5 w-5 rounded-full ${lanyardDetails?.statusColor}`}
@@ -81,17 +83,10 @@ export default function HomePage() {
                             #{lanyardDetails?.discord_user.discriminator}
                           </span>
                         </p>
-                      </div>
-                    </UnstyledLink>
-                  </>
-                ) : (
-                  <>
-                    <UnstyledLink
-                      className='flex h-full items-center justify-center rounded-2xl bg-emerald-500 text-4xl text-white'
-                      href={`https://discord.com/users/${id}`}
-                    >
-                      <div className='space-y-1 text-center '>
-                        <div className='flex flex-row items-center	justify-center gap-3'>
+                      </>
+                    ) : (
+                      <>
+                        <div className='flex flex-row items-center justify-center gap-3'>
                           <VideoPlayer
                             src='/images/connecting.webm'
                             hideControls
@@ -100,10 +95,10 @@ export default function HomePage() {
                             className='w-40'
                           />
                         </div>
-                      </div>
-                    </UnstyledLink>
-                  </>
-                )}
+                      </>
+                    )}
+                  </div>
+                </UnstyledLink>
               </div>
               <div className='col-span-3 flex h-52 items-center justify-center rounded-2xl bg-emerald-500 text-4xl text-emerald-50 md:col-span-2'>
                 <UnstyledLink

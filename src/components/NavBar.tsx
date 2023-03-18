@@ -1,42 +1,52 @@
-// This component is not finished and has no props.
-
+import { useRouter } from 'next/router';
 import * as React from 'react';
+import * as IoIcons from 'react-icons/io5';
 
 import ButtonLink from '@/components/links/ButtonLink';
 
+interface AppRoute {
+  name: string;
+  path: string;
+  icon: keyof typeof IoIcons;
+}
+
+const NAV_LINKS: AppRoute[] = [
+  {
+    name: 'Home',
+    path: '/',
+    icon: 'IoHome',
+  },
+  {
+    name: 'Albums',
+    path: '/albums',
+    icon: 'IoAlbums',
+  },
+];
+
 export default function NavBar() {
-  const [activeButton, setActiveButton] = React.useState('home');
+  const router = useRouter();
+  const currentPath = router.asPath;
+
+  const isActiveLink = (path: string) => currentPath === path;
 
   return (
     <div className='flex justify-center'>
-      <div className='m-5 w-fit rounded '>
-        <ButtonLink
-          isDarkBg
-          className='emerald m-1'
-          onClick={() => setActiveButton('home')}
-          variant={activeButton === 'home' ? 'primary' : 'outline'}
-          href='/'
-        >
-          Home
-        </ButtonLink>
-        <ButtonLink
-          isDarkBg
-          className='emerald m-1'
-          onClick={() => setActiveButton('music')}
-          variant={activeButton === 'music' ? 'primary' : 'outline'}
-          href='/music'
-        >
-          Music
-        </ButtonLink>
-        <ButtonLink
-          isDarkBg
-          className='emerald m-1'
-          onClick={() => setActiveButton('contact')}
-          variant={activeButton === 'contact' ? 'primary' : 'outline'}
-          href='/contact'
-        >
-          Contact Me
-        </ButtonLink>
+      <div className='m-5 w-fit rounded'>
+        {NAV_LINKS.map(({ name, path, icon }) => {
+          const Icon = IoIcons[icon];
+          return (
+            <ButtonLink
+              key={path}
+              isDarkBg
+              className='emerald m-1'
+              variant={isActiveLink(path) ? 'primary' : 'outline'}
+              href={path}
+            >
+              <Icon className='mr-2 inline-block' />
+              {name}
+            </ButtonLink>
+          );
+        })}
       </div>
     </div>
   );

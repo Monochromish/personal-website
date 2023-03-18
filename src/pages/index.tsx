@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   SiGithub,
   SiLastdotfm,
@@ -15,15 +14,14 @@ import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
 import UnderlineLink from '@/components/links/UnderlineLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
+import NextImage from '@/components/NextImage';
 import Seo from '@/components/Seo';
-import Skeleton from '@/components/Skeleton';
 import VideoPlayer from '@/components/VideoPlayer';
 
 import { age, id } from '@/constant/env';
 
 export default function HomePage() {
   const lanyardDetails = useLanyardDetails(id);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const { song } = useLastFMDetails('Monochromish');
 
   return (
@@ -31,31 +29,19 @@ export default function HomePage() {
       <Seo />
 
       <main>
-        <section className='bg-dots dark:bg-white'>
-          {/* <NavBar /> */}
-          {/* Unfinished */}
-
+        <section className='bg-dots'>
           <div className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center text-white'>
             <main className='mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16'>
               <div className='p-200 col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-emerald-200 dark:border-emerald-500 dark:bg-emerald-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52'>
                 <div className='flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4'>
-                  <div className='relative inline-block'>
-                    {!imageLoaded && (
-                      <Skeleton className='absolute top-0 left-0 h-full w-full rounded-full' />
-                    )}
-                    <Image
-                      src='https://avatars.githubusercontent.com/u/79590499?v=4'
-                      placeholder='blur'
-                      blurDataURL='https://avatars.githubusercontent.com/u/79590499?v=4'
-                      height={96}
-                      width={96}
-                      className={`float h-24 w-24 rounded-full border border-emerald-500 object-cover ${
-                        imageLoaded ? 'opacity-100' : 'opacity-0'
-                      }`}
-                      alt='baddie fr'
-                      onLoad={() => setImageLoaded(true)}
-                    />
-                  </div>
+                  <NextImage
+                    src='https://avatars.githubusercontent.com/u/79590499?v='
+                    alt='baddie fr'
+                    width={96}
+                    height={96}
+                    useSkeleton
+                    imgClassName='float h-24 w-24 rounded-full border border-emerald-500 object-cover'
+                  />
 
                   <div className='space-y-1'>
                     <h1 className='font-title dark:text-glow-emerald-500/50 text-center text-xl font-bold tracking-tighter text-emerald-900 dark:text-emerald-300 md:text-left'>
@@ -191,23 +177,14 @@ export default function HomePage() {
                 <>
                   <div className='p-200 col-span-4 flex items-center justify-start overflow-hidden rounded-2xl bg-emerald-200 dark:border-emerald-500 dark:bg-emerald-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52'>
                     <div className='flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4'>
-                      <div className='relative inline-block'>
-                        {!imageLoaded && (
-                          <Skeleton className='absolute top-0 left-0 h-full w-full rounded' />
-                        )}
-                        <Image
-                          src={song.art}
-                          placeholder='blur'
-                          blurDataURL={song.art}
-                          height={96}
-                          width={96}
-                          className={`h-24 w-24 rounded border border-emerald-500 object-cover ${
-                            imageLoaded ? 'opacity-100' : 'opacity-0'
-                          }`}
-                          alt={song.album}
-                          onLoad={() => setImageLoaded(true)}
-                        />
-                      </div>
+                      <NextImage
+                        src={song.art}
+                        alt={song.art}
+                        width={96}
+                        height={96}
+                        useSkeleton
+                        imgClassName='h-24 w-24 rounded border border-emerald-500 object-cover'
+                      />
 
                       <div className='space-y-1'>
                         <h1 className='font-title dark:text-glow-emerald-500/50 text-center text-xl font-bold tracking-tighter text-emerald-900 dark:text-emerald-300 md:text-left'>
